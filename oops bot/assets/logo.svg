@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gradPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="50%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="gradAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <filter id="glowEffect" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Outer Rounded Shield / Hexagon -->
+  <rect x="8" y="8" width="84" height="84" rx="24" fill="#0f0c29" stroke="url(#gradPrimary)" stroke-width="3" filter="url(#glowEffect)"/>
+
+  <!-- Inner Dynamic Circuit Lines -->
+  <circle cx="50" cy="50" r="32" fill="none" stroke="#4c1d95" stroke-width="1.5" stroke-dasharray="4,4" />
+
+  <!-- C++ Styled Brackets & Plus Symbols -->
+  <!-- Left Bracket / Class C -->
+  <path d="M 40 34 C 28 36, 28 64, 40 66" fill="none" stroke="url(#gradAccent)" stroke-width="5" stroke-linecap="round" />
+
+  <!-- C++ Plus 1 -->
+  <path d="M 47 46 L 55 46 M 51 42 L 51 50" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" />
+
+  <!-- C++ Plus 2 -->
+  <path d="M 59 46 L 67 46 M 63 42 L 63 50" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" />
+
+  <!-- AI Brain / Robot Spark Nodes -->
+  <circle cx="50" cy="24" r="4" fill="#38bdf8" filter="url(#glowEffect)" />
+  <circle cx="76" cy="50" r="3" fill="#8b5cf6" />
+  <circle cx="50" cy="76" r="3" fill="#06b6d4" />
+  <circle cx="24" cy="50" r="3" fill="#a855f7" />
+
+  <line x1="50" y1="28" x2="50" y2="34" stroke="#38bdf8" stroke-width="2" />
+  <line x1="73" y1="50" x2="67" y2="50" stroke="#8b5cf6" stroke-width="2" />
+</svg>

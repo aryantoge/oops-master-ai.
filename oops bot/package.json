@@ -1,0 +1,21 @@
+{
+  "name": "oop-master-ai",
+  "version": "1.0.0",
+  "description": "OOP Master AI - C++ Educational Chatbot & Learning Platform",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "serve": "node server.js"
+  },
+  "keywords": [
+    "cpp",
+    "oop",
+    "chatbot",
+    "c-plus-plus",
+    "learning",
+    "education"
+  ],
+  "author": "OOP Master AI",
+  "license": "MIT"
+}

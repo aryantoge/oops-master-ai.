@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOP MASTER AI - C++ Learning Assistant & Intelligent Chatbot</title>
+    <!-- Google Fonts: Outfit & Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons for clean UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Core Application CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+</head>
+<body>
+    <div class="app-container">
+        <!-- ================================================================
+             LEFT SIDEBAR NAVIGATION
+             ================================================================ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/logo.svg" alt="OOP Master AI Logo" class="logo-icon">
+                <div class="logo-text">
+                    <h1>OOP MASTER AI</h1>
+                    <span class="logo-badge">C++ Teacher Edition</span>
+                </div>
+            </div>
+
+            <!-- New Chat Action -->
+            <button class="new-chat-btn" id="btn-new-chat">
+                <i class="fa-solid fa-plus"></i>
+                <span>New Chat</span>
+            </button>
+
+            <!-- Main Navigation Links -->
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Navigation</div>
+                <a class="nav-item active" data-view="chat">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>Home (Chat)</span>
+                </a>
+                <a class="nav-item" data-view="learn">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Learn OOP (Units)</span>
+                </a>
+                <a class="nav-item" data-view="topics">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>All Topics Library</span>
+                </a>
+                <a class="nav-item" data-view="programs">
+                    <i class="fa-solid fa-code"></i>
+                    <span>C++ Programs (30+)</span>
+                </a>
+                <a class="nav-item" data-view="examples">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>Real-Life Examples</span>
+                </a>
+                <a class="nav-item" data-view="exam">
+                    <i class="fa-solid fa-file-pen"></i>
+                    <span>Exam Preparation</span>
+                </a>
+                <a class="nav-item" data-view="quiz">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>MCQ Quiz System</span>
+                </a>
+                <a class="nav-item" id="nav-about">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>About Project</span>
+                </a>
+
+                <div class="nav-section-title">Recent Chats</div>
+                <div class="recent-history-list" id="chat-history-list">
+                    <!-- Populated dynamically via script.js from localStorage -->
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span>AI Engine Online</span>
+                </div>
+                <span style="font-size: 0.72rem; color: var(--text-muted);">v2.4 Ready</span>
+            </div>
+        </aside>
+
+        <!-- ================================================================
+             MAIN CONTENT CONTAINER
+             ================================================================ -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle-btn" id="btn-toggle-sidebar" aria-label="Toggle Sidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="view-title-wrap">
+                        <h2 id="current-view-title">OOP Master AI</h2>
+                        <span class="view-subtitle" id="current-view-subtitle">Your Personal C++ OOP Learning Assistant</span>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <button class="icon-btn" id="btn-open-search" title="Quick Search (Ctrl + K)">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <button class="icon-btn" id="btn-theme-toggle" title="Toggle Dark/Light Mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <button class="icon-btn" id="btn-clear-chat" title="Clear Chat History">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                    <button class="icon-btn" id="btn-download-notes" title="Download Notes as Text File">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Screens Container -->
+            <div class="view-container">
+
+                <!-- 1. CHAT VIEW (HOME) -->
+                <section class="view-screen active" id="view-chat">
+                    <div class="chat-messages-container" id="chat-messages-container">
+                        <!-- Welcome Hero Screen -->
+                        <div class="welcome-hero" id="welcome-hero">
+                            <div class="welcome-badge">
+                                <i class="fa-solid fa-sparkles"></i>
+                                <span>Interactive C++ OOP Assistant</span>
+                            </div>
+                            <h2 class="welcome-title">Welcome to OOP Master AI</h2>
+                            <p class="welcome-desc">
+                                Ask any C++ Object-Oriented Programming question in <strong>English</strong>, 
+                                <strong>मराठी (Marathi)</strong>, or <strong>Hinglish</strong>. Get deep explanations, 
+                                verified C++ code, terminal outputs, real-life analogies, and offline SVG diagrams.
+                            </p>
+
+                            <!-- Quick Suggestion Cards -->
+                            <div class="quick-prompts-grid">
+                                <div class="quick-prompt-card" data-prompt="Explain Inheritance with diagram">
+                                    <span class="prompt-tag">Core Concept</span>
+                                    <span class="prompt-title">Explain Inheritance with SVG Diagram</span>
+                                    <span class="prompt-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                                </div>
+                                <div class="quick-prompt-card" data-prompt="Difference between Class and Object">
+                                    <span class="prompt-tag">Exam Favorite</span>
+                                    <span class="prompt-title">Difference between Class and Object</span>
+                                    <span class="prompt-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                                </div>
+                                <div class="quick-prompt-card" data-prompt="What is Polymorphism in C++?">
+                                    <span class="prompt-tag">Polymorphism</span>
+                                    <span class="prompt-title">What is Polymorphism in C++?</span>
+                                    <span class="prompt-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                                </div>
+                                <div class="quick-prompt-card" data-prompt="Encapsulation explain in Marathi">
+                                    <span class="prompt-tag">मराठी (Marathi)</span>
+                                    <span class="prompt-title">मराठीत Encapsulation सविस्तर सांगा</span>
+                                    <span class="prompt-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                                </div>
+                                <div class="quick-prompt-card" data-prompt="Give me 5 marks answer for constructor">
+                                    <span class="prompt-tag">Exam Ready</span>
+                                    <span class="prompt-title">Give me 5 marks answer for Constructor</span>
+                                    <span class="prompt-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                                </div>
+                                <div class="quick-prompt-card" data-prompt="ATM Abstraction real life example">
+                                    <span class="prompt-tag">Analogy</span>
+                                    <span class="prompt-title">ATM Abstraction Real-Life Example</span>
+                                    <span class="prompt-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chat messages stream appended dynamically here -->
+                    </div>
+
+                    <!-- Input Section -->
+                    <div class="chat-input-area">
+                        <div class="chat-input-wrapper">
+                            <textarea 
+                                class="chat-textarea" 
+                                id="chat-textarea" 
+                                rows="1" 
+                                placeholder="Ask any C++ OOP question in English, मराठी or Hinglish... (Press Enter to send)"></textarea>
+                            <div class="input-actions">
+                                <button class="send-btn" id="btn-send-message" title="Send Question">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-disclaimer">
+                            OOP Master AI uses an offline local C++ knowledge engine covering Units 1 to 6. Free, fast & exam-ready.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. LEARN OOP (UNITS BROWSER) -->
+                <section class="view-screen" id="view-learn">
+                    <div class="section-header">
+                        <h2>Learn C++ Object-Oriented Programming</h2>
+                        <p>Structured curriculum covering all 6 syllabus units with deep-dive topics.</p>
+                    </div>
+
+                    <div class="cards-grid" id="units-catalog-grid">
+                        <!-- Populated by script.js -->
+                    </div>
+                </section>
+
+                <!-- 3. ALL TOPICS LIBRARY -->
+                <section class="view-screen" id="view-topics">
+                    <div class="section-header">
+                        <h2>Complete OOP Topics Library</h2>
+                        <p>Search and explore every C++ concept, definition, syntax, and diagram.</p>
+                    </div>
+
+                    <div class="filter-bar">
+                        <div class="filter-tabs" id="topic-unit-tabs">
+                            <button class="filter-btn active" data-unit="all">All Units</button>
+                            <button class="filter-btn" data-unit="1">Unit 1: Fundamentals</button>
+                            <button class="filter-btn" data-unit="2">Unit 2: Class & Object</button>
+                            <button class="filter-btn" data-unit="3">Unit 3: Constructors</button>
+                            <button class="filter-btn" data-unit="4">Unit 4: Inheritance</button>
+                            <button class="filter-btn" data-unit="5">Unit 5: Polymorphism</button>
+                            <button class="filter-btn" data-unit="6">Unit 6: Advanced OOP</button>
+                        </div>
+                        <div class="search-input-box">
+                            <i class="fa-solid fa-magnifying-glass search-icon-inside"></i>
+                            <input type="text" id="topics-search-input" placeholder="Filter topics...">
+                        </div>
+                    </div>
+
+                    <div class="cards-grid" id="all-topics-grid">
+                        <!-- Populated dynamically -->
+                    </div>
+                </section>
+
+                <!-- 4. C++ PROGRAMS (30+ WORKING EXAMPLES) -->
+                <section class="view-screen" id="view-programs">
+                    <div class="section-header">
+                        <h2>C++ Programs Playground (30+ Examples)</h2>
+                        <p>Verified, working source code with line-by-line explanations and terminal outputs.</p>
+                    </div>
+
+                    <div class="filter-bar">
+                        <div class="filter-tabs" id="program-category-tabs">
+                            <button class="filter-btn active" data-prog-filter="all">All (30)</button>
+                            <button class="filter-btn" data-prog-filter="Class & Object">Class & Object</button>
+                            <button class="filter-btn" data-prog-filter="Inheritance">Inheritance</button>
+                            <button class="filter-btn" data-prog-filter="Polymorphism">Polymorphism</button>
+                            <button class="filter-btn" data-prog-filter="Constructors">Constructors</button>
+                            <button class="filter-btn" data-prog-filter="Advanced OOP">Advanced OOP</button>
+                            <button class="filter-btn" data-prog-filter="Templates">Templates</button>
+                        </div>
+                        <div class="search-input-box">
+                            <i class="fa-solid fa-magnifying-glass search-icon-inside"></i>
+                            <input type="text" id="programs-search-input" placeholder="Search programs...">
+                        </div>
+                    </div>
+
+                    <div id="programs-list-container">
+                        <!-- Populated dynamically -->
+                    </div>
+                </section>
+
+                <!-- 5. REAL-LIFE EXAMPLES VIEW -->
+                <section class="view-screen" id="view-examples">
+                    <div class="section-header">
+                        <h2>Real-Life Analogies & Intuitive Models</h2>
+                        <p>Master complex abstract programming concepts through relatable everyday examples.</p>
+                    </div>
+
+                    <div class="cards-grid" id="real-life-grid">
+                        <!-- Visual real-life analogy cards populated by script.js -->
+                    </div>
+                </section>
+
+                <!-- 6. EXAM PREPARATION VIEW -->
+                <section class="view-screen" id="view-exam">
+                    <div class="section-header">
+                        <h2>College Exam Preparation Dashboard</h2>
+                        <p>Score top marks with curated 2 Marks, 5 Marks, 10 Marks, and Difference questions.</p>
+                    </div>
+
+                    <div class="filter-bar">
+                        <div class="filter-tabs" id="exam-filter-tabs">
+                            <button class="filter-btn active" data-exam-tab="2m">2 Marks Questions</button>
+                            <button class="filter-btn" data-exam-tab="5m">5 Marks Questions</button>
+                            <button class="filter-btn" data-exam-tab="10m">10 Marks Long Answers</button>
+                            <button class="filter-btn" data-exam-tab="diff">Difference Between</button>
+                            <button class="filter-btn" data-exam-tab="notes">Short Notes</button>
+                        </div>
+                    </div>
+
+                    <div id="exam-questions-content">
+                        <!-- Populated dynamically -->
+                    </div>
+                </section>
+
+                <!-- 7. MCQ QUIZ VIEW -->
+                <section class="view-screen" id="view-quiz">
+                    <div class="section-header">
+                        <h2>OOP MCQ Mastery Practice Test</h2>
+                        <p>35 High-yield questions covering all 6 units with immediate explanations and scoring.</p>
+                    </div>
+
+                    <div id="quiz-active-container">
+                        <div class="quiz-header-bar">
+                            <span class="quiz-progress-text" id="quiz-question-counter">Question 1 of 35</span>
+                            <span class="quiz-score-badge" id="quiz-live-score">Score: 0 / 0</span>
+                        </div>
+
+                        <div class="quiz-question-card" id="quiz-question-card">
+                            <!-- Populated dynamically -->
+                        </div>
+
+                        <div class="quiz-controls-row">
+                            <button class="btn-card btn-card-secondary" id="btn-quiz-prev" style="max-width: 140px;">
+                                <i class="fa-solid fa-arrow-left"></i> Previous
+                            </button>
+                            <button class="btn-card btn-card-primary" id="btn-quiz-next" style="max-width: 140px;">
+                                Next <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Results Screen (Hidden initially) -->
+                    <div class="quiz-result-hero" id="quiz-result-hero" style="display: none;">
+                        <div class="score-circle">
+                            <span class="score-number" id="result-score">28</span>
+                            <span class="score-max">OUT OF 35</span>
+                        </div>
+                        <h3 id="result-badge-text" style="font-size: 1.5rem; margin-bottom: 8px;">OOP Master!</h3>
+                        <p id="result-feedback-text" style="color: var(--text-muted); margin-bottom: 24px;">
+                            Outstanding performance! You have a firm grasp of C++ Object-Oriented Programming.
+                        </p>
+                        <button class="btn-card btn-card-primary" id="btn-restart-quiz" style="margin: 0 auto; max-width: 200px;">
+                            <i class="fa-solid fa-rotate-right"></i> Retake Quiz
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- ================================================================
+         GLOBAL SEARCH MODAL
+         ================================================================ -->
+    <div class="modal-overlay" id="search-modal">
+        <div class="modal-box">
+            <button class="modal-close-btn" id="btn-close-search">&times;</button>
+            <h3 style="color: #ffffff; font-size: 1.2rem;"><i class="fa-solid fa-magnifying-glass" style="color: var(--accent-cyan); margin-right: 8px;"></i> Instant OOP Knowledge Search</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Search concepts, C++ programs, exam answers, and diagrams instantly.</p>
+            <input type="text" class="modal-search-input" id="global-search-input" placeholder="Type keyword e.g. inheritance, constructor, marathi, diamond...">
+            <div class="search-results-list" id="search-results-list">
+                <!-- Search items populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         ABOUT PROJECT MODAL
+         ================================================================ -->
+    <div class="modal-overlay" id="about-modal">
+        <div class="modal-box">
+            <button class="modal-close-btn" id="btn-close-about">&times;</button>
+            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+                <img src="assets/logo.svg" alt="OOP Master AI Logo" style="width: 48px; height: 48px;">
+                <div>
+                    <h3 style="color: #ffffff; font-size: 1.3rem;">OOP MASTER AI</h3>
+                    <span style="color: var(--accent-cyan); font-size: 0.82rem; font-weight: 600;">Educational C++ OOP Teacher & Chatbot</span>
+                </div>
+            </div>
+
+            <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 14px; line-height: 1.6;">
+                <strong>OOP MASTER AI</strong> is a full-featured, zero-dependency educational website developed to make C++ Object-Oriented Programming intuitive, practical, and exam-ready for college engineering and computer science students.
+            </p>
+
+            <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 16px;">
+                <h4 style="color: #c4b5fd; font-size: 0.95rem; margin-bottom: 8px;">Key Capabilities:</h4>
+                <ul style="color: var(--text-secondary); font-size: 0.85rem; padding-left: 20px; line-height: 1.7;">
+                    <li><strong>Intelligent Multilingual Chatbot:</strong> Understands queries in English, मराठी (Marathi), and Hinglish.</li>
+                    <li><strong>Complete 6-Unit Knowledge Base:</strong> 50+ topics with definitions, syntax, code, outputs, and points.</li>
+                    <li><strong>Educational SVG Diagrams:</strong> Dynamic visual representations of classes, inheritance, abstraction, and memory lifecycles.</li>
+                    <li><strong>30+ Working C++ Programs:</strong> Real, tested source code with one-click copy and expected outputs.</li>
+                    <li><strong>Exam Preparation Suite:</strong> Model answers for 2 Marks, 5 Marks, 10 Marks, and Difference tables.</li>
+                    <li><strong>Interactive MCQ Quiz:</strong> 35 High-yield questions with instant scoring and explanations.</li>
+                    <li><strong>100% Offline & Private:</strong> No external database, no paid API keys, no backend required. Runs directly in browser!</li>
+                </ul>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px;">
+                <span>Tech Stack: HTML5, CSS3, Vanilla JavaScript, SVG</span>
+                <span style="color: var(--accent-green); font-weight: 600;">Status: Complete & Production-Ready</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         SCRIPTS ARCHITECTURE
+         ================================================================ -->
+    <script src="diagrams.js"></script>
+    <script src="knowledge.js"></script>
+    <script src="topics.js"></script>
+    <script src="programs.js"></script>
+    <script src="quiz.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
